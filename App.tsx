@@ -12,7 +12,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
+  Text, 
   useColorScheme,
   View,
 } from 'react-native';
