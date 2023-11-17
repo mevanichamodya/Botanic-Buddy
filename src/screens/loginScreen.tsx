@@ -1,10 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 const loginScreen = () => {
   return (
     <View style={[styles.main]}>
-      <View style={[styles.imagBox]} />
+      <View style={[styles.imagBox]}>
+        <Image
+          source={require('../../assets/image/leaves-318743_1280.jpg')}
+          style={[styles.imagBox]}
+        />
+      </View>
       <View style={[styles.loginBox, {flexDirection: 'column'}]}>
         <View style={[styles.loginHeader]}>
           <View style={[styles.loginHear]}>
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     padding: 0,
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     flexDirection: 'column',
   },
 
