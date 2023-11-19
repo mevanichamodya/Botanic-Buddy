@@ -1,51 +1,79 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 
 const loginScreen = () => {
   return (
-    <View style={[styles.main]}>
-      <View style={[styles.imagBox]}>
-        <Image
-          source={require('../../assets/image/leaves-318743_1280.jpg')}
-          style={[styles.imagBox]}
-        />
-      </View>
-      <View style={[styles.loginBox, {flexDirection: 'column'}]}>
-        <View style={[styles.loginHeader]}>
-          <View style={[styles.loginHear]}>
-            <Text style={[styles.loginMainText]}>Login here</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <ScrollView
+        contentContainerStyle={styles.main}
+        keyboardShouldPersistTaps="handled">
+        <View style={[styles.main]}>
+          <View>
+            <Image
+              source={require('../../assets/image/leaves-318743_1280.jpg')}
+              style={[styles.imagBox]}
+            />
           </View>
-          <View style={[styles.loginText]}>
-            <Text style={[styles.loginSubText]}>Welcome back you've</Text>
-            <Text style={[styles.loginSubText]}>been missed!</Text>
-          </View>
-        </View>
+          <View style={[styles.loginBox, {flexDirection: 'column'}]}>
+            <View style={[styles.loginHeader]}>
+              <View style={[styles.loginHear]}>
+                <Text style={[styles.loginMainText]}>Login here</Text>
+              </View>
+              <View style={[styles.loginText]}>
+                <Text style={[styles.loginSubText]}>Welcome back you've</Text>
+                <Text style={[styles.loginSubText]}>been missed!</Text>
+              </View>
+            </View>
 
-        <View style={[styles.loginInput]}>
-          <View style={[styles.emailInput]}>
-            <Text style={[styles.inputText]}>Email</Text>
-          </View>
-          <View style={[styles.passwordInput]}>
-            <Text style={[styles.inputText]}>Password</Text>
-          </View>
-          <View style={[styles.signinInput]}>
-            <Text style={[styles.signInText]}>Sign In</Text>
+            <View style={[styles.loginInput]}>
+              <View style={[styles.emailInput]}>
+                <TextInput style={[styles.inputText]}>Email</TextInput>
+              </View>
+              <View style={[styles.passwordInput]}>
+                <TextInput style={[styles.inputText]}>Password</TextInput>
+              </View>
+              <View style={[styles.signinInput]}>
+                <TouchableOpacity style={styles.signInButton}>
+                  <Text style={styles.signInText}>Sign In</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={[styles.loginButton]}>
+              <View style={[styles.newAccTextField]}>
+                <Text style={[styles.newAccText]}> Create new account</Text>
+              </View>
+              <View style={[styles.continueTextField]}>
+                <Text style={[styles.continueText]}> Or continue with</Text>
+              </View>
+              <View style={[styles.buttonField]}>
+                <TouchableOpacity style={[styles.googleButton]}>
+                  <Image
+                    source={require('../../assets/icon/icons8-google-22.png')}
+                    style={[styles.icon]}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.fbButton]}>
+                  <Image
+                    source={require('../../assets/icon/icons8-facebook-48.png')}
+                    style={[styles.icon]}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
-        <View style={[styles.loginButton]}>
-          <View style={[styles.newAccTextField]}>
-            <Text style={[styles.newAccText]}> Create new account</Text>
-          </View>
-          <View style={[styles.continueTextField]}>
-            <Text style={[styles.continueText]}> Or continue with</Text>
-          </View>
-          <View style={[styles.buttonField]}>
-            <View style={[styles.googleButton]} />
-            <View style={[styles.fbButton]} />
-          </View>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -59,30 +87,36 @@ const styles = StyleSheet.create({
 
   imagBox: {
     width: '100%',
-    height: 400,
-    backgroundColor: 'purple',
+    height: 380,
+    backgroundColor: 'white',
     position: 'absolute',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
 
   loginBox: {
-    flex: 1,
+    width: 'auto',
+    height: 'auto',
     padding: 10,
-    marginTop: 80,
+    paddingBottom: 25,
+    marginTop: 130,
     backgroundColor: 'white',
-    borderRadius: 18,
-    elevation: 50,
+    borderRadius: 25,
+    elevation: 15,
     margin: 30,
   },
 
   loginHeader: {
-    flex: 2,
+    width: '100%',
+    height: 150,
     backgroundColor: 'white',
     margin: 5,
   },
 
   loginHear: {
-    flex: 1,
-    marginTop: 10,
+    width: '100%',
+    height: 'auto',
+    marginTop: 20,
     backgroundColor: 'white',
     margin: 0,
     alignItems: 'center',
@@ -98,7 +132,8 @@ const styles = StyleSheet.create({
   },
 
   loginText: {
-    //flex: 0.6,
+    width: '100%',
+    height: 100,
     marginTop: 0,
     backgroundColor: 'white',
     margin: 0,
@@ -115,51 +150,53 @@ const styles = StyleSheet.create({
   },
 
   loginInput: {
-    flex: 2.7,
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    height: 'auto',
     backgroundColor: 'white',
   },
 
   emailInput: {
-    flex: 0.4,
+    width: '97%',
+    height: 60,
+    //flex: 0.4,
     marginTop: 10,
     backgroundColor: 'white',
-    margin: 3,
     justifyContent: 'center',
-    borderRadius: 15,
-    elevation: 10,
+    borderRadius: 50,
+    elevation: 2,
     borderWidth: 3,
     borderColor: '#009A17',
   },
   passwordInput: {
-    flex: 0.4,
-    marginTop: 20,
+    width: '97%',
+    height: 60,
+    // flex: 0.4,
+    marginTop: 30,
     backgroundColor: 'white',
-    margin: 3,
     justifyContent: 'center',
-    borderRadius: 15,
-    elevation: 10,
+    borderRadius: 50,
+    elevation: 2,
     borderWidth: 3,
     borderColor: '#009A17',
   },
   signinInput: {
-    flex: 0.4,
-    marginTop: 20,
-    backgroundColor: '#009A17',
-    margin: 3,
+    width: '97%',
+    height: 50,
+    // flex: 0.4,
+    marginTop: 40,
     justifyContent: 'center',
-    borderRadius: 15,
-    elevation: 10,
-    borderWidth: 3,
+    borderRadius: 50,
     borderColor: '#009A17',
+    // borderWidth: 1,
   },
 
-  inputText: {
-    fontSize: 15,
-    color: '#5B5959',
-    fontWeight: '500',
-    letterSpacing: 0.5,
-    textAlign: 'left',
-    marginLeft: 20,
+  signInButton: {
+    backgroundColor: '#009A17',
+    height: '100%',
+    justifyContent: 'center',
+    borderRadius: 50,
   },
 
   signInText: {
@@ -169,15 +206,25 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textAlign: 'center',
   },
+  inputText: {
+    fontSize: 15,
+    color: '#5B5959',
+    fontWeight: '500',
+    letterSpacing: 0.5,
+    textAlign: 'left',
+    marginLeft: 20,
+  },
 
   loginButton: {
-    flex: 3,
-    backgroundColor: 'white',
+    width: '100%',
+    height: 'auto',
+    backgroundColor: 'rgba(255, 0, 0, 0)',
   },
 
   newAccTextField: {
-    flex: 0.3,
-    backgroundColor: 'white',
+    width: '100%',
+    height: 40,
+    backgroundColor: 'rgba(255, 0, 0, 0)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -190,11 +237,13 @@ const styles = StyleSheet.create({
   },
 
   continueTextField: {
-    flex: 0.3,
-    backgroundColor: 'white',
-    marginTop: 40,
+    width: '100%',
+    height: 60,
+    backgroundColor: 'rgba(255, 0, 0, 0)',
+    display: 'flex',
+    // marginTop: 40,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
 
   continueText: {
@@ -207,21 +256,21 @@ const styles = StyleSheet.create({
   buttonField: {
     width: '100%',
     height: 60,
-    backgroundColor: 'white',
-    marginTop: 10,
+    //backgroundColor: 'rgba(255, 0, 0, 0)',
+    // marginTop: 10,
     display: 'flex',
-    margin: 5,
+    // margin: 5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   googleButton: {
-    width: 70,
-    height: 50,
+    width: 62,
+    height: 41,
     backgroundColor: 'white',
-    borderRadius: 9,
-    elevation: 10,
+    borderRadius: 10,
+    elevation: 3,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
@@ -230,16 +279,22 @@ const styles = StyleSheet.create({
   },
 
   fbButton: {
-    width: 70,
-    height: 50,
+    width: 62,
+    height: 41,
     backgroundColor: 'white',
-    borderRadius: 9,
-    elevation: 10,
+    borderRadius: 10,
+    elevation: 3,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 10,
     borderWidth: 2,
     borderColor: '#009A17',
+  },
+
+  icon: {
+    width: 26,
+    height: 26,
+    alignItems: 'center',
   },
 });
 
