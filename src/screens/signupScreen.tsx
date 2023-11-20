@@ -39,11 +39,15 @@ const signupScreen = () => {
           </View>
         </View>
         <View style={[styles.signup_fb_google_ButtonBox]}>
-          <View style={[styles.bottomSubTextBox]} />
-          <View style={[styles.continueField]} />
+          <View style={[styles.bottomSubTextBox]}>
+            <Text style={[styles.bottomSubText]}>Already have an account</Text>
+          </View>
+          <View style={[styles.continueField]}>
+            <Text style={[styles.continueFieldText]}> Or continue with</Text>
+          </View>
           <View style={[styles.buttonField]}>
-            <View style={[styles.googleButton]} />
-            <View style={[styles.googleButton]} />
+            <View style={[styles.googleFbButton]} />
+            <View style={[styles.googleFbButton]} />
           </View>
         </View>
       </View>
@@ -70,10 +74,10 @@ const styles = StyleSheet.create({
   signupBox: {
     width: 'auto',
     height: 650,
-    padding: 10,
+    padding: 15,
     paddingBottom: 25,
     marginTop: 110,
-    backgroundColor: 'pink',
+    backgroundColor: 'white',
     borderRadius: 25,
     elevation: 15,
     margin: 30,
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
 
   signupField: {
     width: '97%',
-    height: 60,
+    height: 50,
     //flex: 0.4,
     marginTop: 10,
     backgroundColor: 'white',
@@ -152,14 +156,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
-  emailText: {},
-
-  passwordText: {},
-
-  confirmPasswordText: {},
-
-  signUpButtonText: {},
-
   signupButton: {
     backgroundColor: '#009A17',
     height: '100%',
@@ -176,43 +172,53 @@ const styles = StyleSheet.create({
 
   signup_fb_google_ButtonBox: {
     width: '100%',
-    height: 145,
+    //height: 100,
     backgroundColor: 'white',
   },
 
   bottomSubTextBox: {
     width: '100%',
-    height: 40,
-    backgroundColor: 'teal',
+    height: 20,
+    backgroundColor: 'white',
     display: 'flex',
     // marginTop: 40,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  bottomSubText: {},
+  bottomSubText: {
+    fontSize: 16,
+    color: '#000000',
+    fontWeight: '500',
+    letterSpacing: 0.8,
+  },
 
   continueField: {
     width: '100%',
-    height: 40,
-    backgroundColor: 'gray',
+    height: 35,
+    backgroundColor: 'white',
     display: 'flex',
     // marginTop: 40,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
 
-  continueFieldText: {},
+  continueFieldText: {
+    fontSize: 16,
+    color: '#FF0505',
+    fontWeight: 'bold',
+    letterSpacing: 0.8,
+  },
 
   buttonField: {
     width: '100%',
-    height: 60,
+    height: 75,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  googleButton: {
+  googleFbButton: {
     width: 62,
     height: 41,
     backgroundColor: 'white',
@@ -224,8 +230,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#009A17',
   },
-
-  fbButton: {},
 });
 
 export default signupScreen;
