@@ -1,64 +1,102 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  ScrollView,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 const signupScreen = () => {
   return (
-    <View style={[styles.signUpMain]}>
-      <View style={[styles.signupImg]} />
-      <View style={[styles.signupBox, {flexDirection: 'column'}]}>
-        <View style={[styles.signupHeadBox]}>
-          <View style={[styles.signupHeader]}>
-            <Text style={[styles.signupHeaderText]}> Create Account </Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <ScrollView
+        contentContainerStyle={styles.signUpMain}
+        keyboardShouldPersistTaps="handled">
+        <View style={[styles.signUpMain]}>
+          <View>
+            <Image
+              source={require('../../assets/image/leaves-318743_1280.jpg')}
+              style={[styles.signupImg]}
+            />
           </View>
-          <View style={[styles.signupSubHeader]}>
-            <Text style={[styles.signupSubHeaderText]}>
-              Create an account so you can
-            </Text>
-            <Text style={[styles.signupSubHeaderText]}>
-              explore all the plant
-            </Text>
+          <View style={[styles.signupBox, {flexDirection: 'column'}]}>
+            <View style={[styles.signupHeadBox]}>
+              <View style={[styles.signupHeader]}>
+                <Text style={[styles.signupHeaderText]}> Create Account </Text>
+              </View>
+              <View style={[styles.signupSubHeader]}>
+                <Text style={[styles.signupSubHeaderText]}>
+                  Create an account so you can
+                </Text>
+                <Text style={[styles.signupSubHeaderText]}>
+                  explore all the plant
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.signupTextFieldBox]}>
+              <View style={[styles.signupField]}>
+                <TextInput style={[styles.userNameText]}>User name</TextInput>
+              </View>
+              <View style={[styles.signupField]}>
+                <TextInput style={[styles.userNameText]}>Email</TextInput>
+              </View>
+              <View style={[styles.signupField]}>
+                <TextInput style={[styles.userNameText]}>Password</TextInput>
+              </View>
+              <View style={[styles.signupField]}>
+                <TextInput style={[styles.userNameText]}>
+                  Confirm password
+                </TextInput>
+              </View>
+              <View style={[styles.signupField]}>
+                <TouchableOpacity style={[styles.signupButton]}>
+                  <Text style={[styles.signupText]}>Sign up</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={[styles.signup_fb_google_ButtonBox]}>
+              <View style={[styles.bottomSubTextBox]}>
+                <Text style={[styles.bottomSubText]}>
+                  Already have an account
+                </Text>
+              </View>
+              <View style={[styles.continueField]}>
+                <Text style={[styles.continueFieldText]}>
+                  {' '}
+                  Or continue with
+                </Text>
+              </View>
+              <View style={[styles.buttonField]}>
+                <TouchableOpacity style={[styles.googleFbButton]}>
+                  <Image
+                    source={require('../../assets/icon/icons8-google-22.png')}
+                    style={[styles.icon]}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.googleFbButton]}>
+                  <Image
+                    source={require('../../assets/icon/icons8-facebook-48.png')}
+                    style={[styles.icon]}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
-        <View style={[styles.signupTextFieldBox]}>
-          <View style={[styles.signupField]}>
-            <Text style={[styles.userNameText]}>User name</Text>
-          </View>
-          <View style={[styles.signupField]}>
-            <Text style={[styles.userNameText]}>Email</Text>
-          </View>
-          <View style={[styles.signupField]}>
-            <Text style={[styles.userNameText]}>Password</Text>
-          </View>
-          <View style={[styles.signupField]}>
-            <Text style={[styles.userNameText]}>Confirm password</Text>
-          </View>
-          <View style={[styles.signupField]}>
-            <TouchableOpacity style={[styles.signupButton]}>
-              <Text style={[styles.signupText]}>Sign up</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={[styles.signup_fb_google_ButtonBox]}>
-          <View style={[styles.bottomSubTextBox]}>
-            <Text style={[styles.bottomSubText]}>Already have an account</Text>
-          </View>
-          <View style={[styles.continueField]}>
-            <Text style={[styles.continueFieldText]}> Or continue with</Text>
-          </View>
-          <View style={[styles.buttonField]}>
-            <View style={[styles.googleFbButton]} />
-            <View style={[styles.googleFbButton]} />
-          </View>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   signUpMain: {
     flex: 1,
-    backgroundColor: 'purple',
+    backgroundColor: 'white',
     flexDirection: 'column',
   },
 
@@ -229,6 +267,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderWidth: 2,
     borderColor: '#009A17',
+  },
+
+  icon: {
+    width: 26,
+    height: 26,
+    alignItems: 'center',
   },
 });
 
