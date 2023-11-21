@@ -1,39 +1,98 @@
-import React from "react";
-import { StyleSheet,SafeAreaView,Image,ImageBackground,View,TouchableOpacity,Text, TextInput } from 'react-native';
+import React,{useEffect, useState} from "react";
+import { StyleSheet,SafeAreaView,ScrollView,Image,ImageBackground,View,TouchableOpacity,Text, TextInput } from 'react-native';
 
 const Profile=()=>{
+    const [firstName, setFirstName] = useState('John');
+    const [lastName, setLastName] = useState('Doe');
+    const [email, setEmail] = useState('john.doe@example.com');
+    const [address, setAddress] = useState('123 Main St');
+    const [isEditing, setIsEditing] = useState(false);
+    const [originalValues, setOriginalValues] = useState({});
+    
+    useEffect(() => {
+        // Save the original values when entering edit mode
+        if (isEditing) {
+          setOriginalValues({ firstName, lastName, email, address });
+        }
+    }, [isEditing]);
+
+    //handle edit button
+    const handleEditClick = () => {
+        setIsEditing(!isEditing);
+    };
+
+    //handle save button
+    const handleSaveClick = () => {
+        setIsEditing(false);
+    };
+
+    //handle cancel button
+    const handleCancelClick = () => {
+        setFirstName(originalValues.firstName);
+        setLastName(originalValues.lastName);
+        setEmail(originalValues.email);
+        setAddress(originalValues.address);
+        setIsEditing(false);
+    };
     return(
         <SafeAreaView style={styles.container}>
             <ImageBackground
                 source={require('../../assets/image/profile_background.jpg')}
                 style={styles.imageBackground}
             >
-                <TouchableOpacity style={styles.editIconContainer}>
+                <TouchableOpacity 
+                    style={styles.editIconContainer} 
+                    onPress={handleEditClick}>
                     <Image
                         source={require('../../assets/icon/icons8-edit-24.png')}
                         style={styles.editIconImage}
                     />
         </TouchableOpacity>
             </ImageBackground>
-            <SafeAreaView style={styles.overlayContainer}>
+            <ScrollView style={styles.overlayContainer}>
                 <Text style={styles.text}> First Name:</Text>
-                <TextInput style={styles.input}></TextInput>
-                <Text style={styles.text}> Last Name:</Text>
-                <TextInput style={styles.input}></TextInput>
-                <Text style={styles.text}> Email:</Text>
-                <TextInput style={styles.input}></TextInput>
-                <Text style={styles.text}> Address:</Text>
-                <TextInput style={styles.input}></TextInput>
+                <TextInput 
+                    style={styles.input}
+                    value={firstName}
+                    onChangeText={setFirstName}
+                    editable={isEditing}
+                />
 
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.saveButton}>
-                        <Text style={styles.buttonText}>Save</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cancelButton} >
-                        <Text style={styles.buttonText}>Cancel</Text>
-                    </TouchableOpacity>
-                </View>
-            </SafeAreaView>
+                <Text style={styles.text}> Last Name:</Text>
+                <TextInput 
+                    style={styles.input}
+                    value={lastName}
+                    onChangeText={setLastName}
+                    editable={isEditing}
+                />
+
+                <Text style={styles.text}> Email:</Text>
+                <TextInput 
+                    style={styles.input}
+                    value={email}
+                    onChangeText={setEmail}
+                    editable={isEditing}
+                />
+
+                <Text style={styles.text}> Address:</Text>
+                <TextInput 
+                    style={styles.input}
+                    value={address}
+                    onChangeText={setAddress}
+                    editable={isEditing}
+                />
+
+                {isEditing && (
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.saveButton} onPress={handleSaveClick}>
+                            <Text style={styles.buttonText}>Save</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cancelButton} onPress={handleCancelClick}>
+                            <Text style={styles.buttonText}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            </ScrollView>
             <View style={styles.topConatiner}>
                 <Image
                     source={require('../../assets/icon/icons8-avatar-64.png')}
@@ -99,6 +158,7 @@ const styles=StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 35,
+        marginBottom:10
     },
     saveButton: {
         backgroundColor: '#009A17',
