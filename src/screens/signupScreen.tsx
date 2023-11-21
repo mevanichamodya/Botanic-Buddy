@@ -9,87 +9,105 @@ import {
   ScrollView,
   Keyboard,
   TouchableWithoutFeedback,
+  SafeAreaView,
 } from 'react-native';
 
 const signupScreen = () => {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <ScrollView
-        contentContainerStyle={styles.signUpMain}
-        keyboardShouldPersistTaps="handled">
-        <View style={[styles.signUpMain]}>
-          <View>
-            <Image
-              source={require('../../assets/image/leaves-318743_1280.jpg')}
-              style={[styles.signupImg]}
-            />
-          </View>
-          <View style={[styles.signupBox, {flexDirection: 'column'}]}>
-            <View style={[styles.signupHeadBox]}>
-              <View style={[styles.signupHeader]}>
-                <Text style={[styles.signupHeaderText]}> Create Account </Text>
-              </View>
-              <View style={[styles.signupSubHeader]}>
-                <Text style={[styles.signupSubHeaderText]}>
-                  Create an account so you can
-                </Text>
-                <Text style={[styles.signupSubHeaderText]}>
-                  explore all the plant
-                </Text>
-              </View>
+    <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <ScrollView
+          contentContainerStyle={styles.signUpMain}
+          keyboardShouldPersistTaps="handled">
+          <View style={[styles.signUpMain]}>
+            <View>
+              <Image
+                source={require('../../assets/image/leaves-318743_1280.jpg')}
+                style={[styles.signupImg]}
+              />
             </View>
-            <View style={[styles.signupTextFieldBox]}>
-              <View style={[styles.signupField]}>
-                <TextInput style={[styles.userNameText]}>User name</TextInput>
+            <View style={[styles.signupBox, {flexDirection: 'column'}]}>
+              <View style={[styles.signupHeadBox]}>
+                <View style={[styles.signupHeader]}>
+                  <Text style={[styles.signupHeaderText]}>
+                    {' '}
+                    Create Account{' '}
+                  </Text>
+                </View>
+                <View style={[styles.signupSubHeader]}>
+                  <Text style={[styles.signupSubHeaderText]}>
+                    Create an account so you can
+                  </Text>
+                  <Text style={[styles.signupSubHeaderText]}>
+                    explore all the plant
+                  </Text>
+                </View>
               </View>
-              <View style={[styles.signupField]}>
-                <TextInput style={[styles.userNameText]}>Email</TextInput>
-              </View>
-              <View style={[styles.signupField]}>
-                <TextInput style={[styles.userNameText]}>Password</TextInput>
-              </View>
-              <View style={[styles.signupField]}>
-                <TextInput style={[styles.userNameText]}>
-                  Confirm password
-                </TextInput>
-              </View>
-              <View style={[styles.signupField]}>
-                <TouchableOpacity style={[styles.signupButton]}>
-                  <Text style={[styles.signupText]}>Sign up</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={[styles.signup_fb_google_ButtonBox]}>
-              <View style={[styles.bottomSubTextBox]}>
-                <Text style={[styles.bottomSubText]}>
-                  Already have an account
-                </Text>
-              </View>
-              <View style={[styles.continueField]}>
-                <Text style={[styles.continueFieldText]}>
-                  {' '}
-                  Or continue with
-                </Text>
-              </View>
-              <View style={[styles.buttonField]}>
-                <TouchableOpacity style={[styles.googleFbButton]}>
-                  <Image
-                    source={require('../../assets/icon/icons8-google-22.png')}
-                    style={[styles.icon]}
+              <View style={[styles.signupTextFieldBox]}>
+                <View style={[styles.signupField]}>
+                  <TextInput
+                    style={[styles.userNameText]}
+                    placeholder="User name"
                   />
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.googleFbButton]}>
-                  <Image
-                    source={require('../../assets/icon/icons8-facebook-48.png')}
-                    style={[styles.icon]}
+                </View>
+                <View style={[styles.signupField]}>
+                  <TextInput
+                    style={[styles.userNameText]}
+                    placeholder="Email"
                   />
-                </TouchableOpacity>
+                </View>
+                <View style={[styles.signupField]}>
+                  <TextInput
+                    style={[styles.userNameText]}
+                    placeholder="Password"
+                    secureTextEntry={true}
+                  />
+                </View>
+                <View style={[styles.signupField]}>
+                  <TextInput
+                    style={[styles.userNameText]}
+                    placeholder=" Confirm password"
+                    secureTextEntry={true}
+                  />
+                </View>
+                <View style={[styles.signupField]}>
+                  <TouchableOpacity style={[styles.signupButton]}>
+                    <Text style={[styles.signupText]}>Sign up</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={[styles.signup_fb_google_ButtonBox]}>
+                <View style={[styles.bottomSubTextBox]}>
+                  <Text style={[styles.bottomSubText]}>
+                    Already have an account
+                  </Text>
+                </View>
+                <View style={[styles.continueField]}>
+                  <Text style={[styles.continueFieldText]}>
+                    {' '}
+                    Or continue with
+                  </Text>
+                </View>
+                <View style={[styles.buttonField]}>
+                  <TouchableOpacity style={[styles.googleFbButton]}>
+                    <Image
+                      source={require('../../assets/icon/icons8-google-22.png')}
+                      style={[styles.icon]}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.googleFbButton]}>
+                    <Image
+                      source={require('../../assets/icon/icons8-facebook-48.png')}
+                      style={[styles.icon]}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
-    </TouchableWithoutFeedback>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 

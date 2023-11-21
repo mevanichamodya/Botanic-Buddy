@@ -1,4 +1,7 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -9,71 +12,134 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
+  SafeAreaView,
 } from 'react-native';
 
 const loginScreen = () => {
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <ScrollView
-        contentContainerStyle={styles.main}
-        keyboardShouldPersistTaps="handled">
-        <View style={[styles.main]}>
-          <View>
-            <Image
-              source={require('../../assets/image/leaves-318743_1280.jpg')}
-              style={[styles.imagBox]}
-            />
-          </View>
-          <View style={[styles.loginBox, {flexDirection: 'column'}]}>
-            <View style={[styles.loginHeader]}>
-              <View style={[styles.loginHear]}>
-                <Text style={[styles.loginMainText]}>Login here</Text>
-              </View>
-              <View style={[styles.loginText]}>
-                <Text style={[styles.loginSubText]}>Welcome back you've</Text>
-                <Text style={[styles.loginSubText]}>been missed!</Text>
-              </View>
-            </View>
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-            <View style={[styles.loginInput]}>
-              <View style={[styles.emailInput]}>
-                <TextInput style={[styles.inputText]}>Email</TextInput>
-              </View>
-              <View style={[styles.passwordInput]}>
-                <TextInput style={[styles.inputText]}>Password</TextInput>
-              </View>
-              <View style={[styles.signinInput]}>
-                <TouchableOpacity style={styles.signInButton}>
-                  <Text style={styles.signInText}>Sign In</Text>
-                </TouchableOpacity>
-              </View>
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email) && email != '') {
+      setEmailError('Inavalid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const validatePassword = () => {
+    if (password.length < 6 && password != '') {
+      setPasswordError('Password must be at least 6 characters:');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleLogin = () => {
+    validateEmail();
+    validatePassword();
+
+    if (emailError === '' && passwordError === '') {
+      console.log('Login successful');
+    } else {
+      console.log('Login faield. Please try again');
+    }
+  };
+  return (
+    <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <ScrollView
+          contentContainerStyle={styles.main}
+          keyboardShouldPersistTaps="handled">
+          <View style={[styles.main]}>
+            <View>
+              <Image
+                source={require('../../assets/image/leaves-318743_1280.jpg')}
+                style={[styles.imagBox]}
+              />
             </View>
-            <View style={[styles.loginButton]}>
-              <View style={[styles.newAccTextField]}>
-                <Text style={[styles.newAccText]}> Create new account</Text>
+            <View style={[styles.loginBox, {flexDirection: 'column'}]}>
+              <View style={[styles.loginHeader]}>
+                <View style={[styles.loginHear]}>
+                  <Text style={[styles.loginMainText]}>Login here</Text>
+                </View>
+                <View style={[styles.loginText]}>
+                  <Text style={[styles.loginSubText]}>Welcome back you've</Text>
+                  <Text style={[styles.loginSubText]}>been missed!</Text>
+                </View>
               </View>
-              <View style={[styles.continueTextField]}>
-                <Text style={[styles.continueText]}> Or continue with</Text>
+
+              <View style={[styles.loginInput]}>
+                <View style={[styles.emailInput]}>
+                  <TextInput
+                    style={[styles.inputText]}
+                    placeholder="Email"
+                    onChangeText={text => setEmail(text)}
+                    onBlur={validateEmail}
+                  />
+                </View>
+                <View style={[styles.errorText]}>
+                  {emailError !== '' && (
+                    <Text
+                      style={{
+                        color: 'red',
+                      }}>
+                      {' '}
+                      {emailError}
+                    </Text>
+                  )}
+                </View>
+                <View style={[styles.passwordInput]}>
+                  <TextInput
+                    style={[styles.inputText]}
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    onChangeText={text => setPassword(text)}
+                    onBlur={validatePassword}
+                  />
+                </View>
+
+                <View style={[styles.errorText]}>
+                  {passwordError !== '' && (
+                    <Text style={{color: 'red'}}>{passwordError}</Text>
+                  )}
+                </View>
+                <View style={[styles.signinInput]}>
+                  <TouchableOpacity style={styles.signInButton}>
+                    <Text style={styles.signInText}>Sign In</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={[styles.buttonField]}>
-                <TouchableOpacity style={[styles.googleButton]}>
-                  <Image
-                    source={require('../../assets/icon/icons8-google-22.png')}
-                    style={[styles.icon]}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.fbButton]}>
-                  <Image
-                    source={require('../../assets/icon/icons8-facebook-48.png')}
-                    style={[styles.icon]}
-                  />
-                </TouchableOpacity>
+              <View style={[styles.loginButton]}>
+                <View style={[styles.newAccTextField]}>
+                  <Text style={[styles.newAccText]}> Create new account</Text>
+                </View>
+                <View style={[styles.continueTextField]}>
+                  <Text style={[styles.continueText]}> Or continue with</Text>
+                </View>
+                <View style={[styles.buttonField]}>
+                  <TouchableOpacity style={[styles.googleButton]}>
+                    <Image
+                      source={require('../../assets/icon/icons8-google-22.png')}
+                      style={[styles.icon]}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.fbButton]}>
+                    <Image
+                      source={require('../../assets/icon/icons8-facebook-48.png')}
+                      style={[styles.icon]}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
-    </TouchableWithoutFeedback>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 
@@ -159,7 +225,7 @@ const styles = StyleSheet.create({
 
   emailInput: {
     width: '97%',
-    height: 60,
+    height: 56,
     //flex: 0.4,
     marginTop: 10,
     backgroundColor: 'white',
@@ -168,12 +234,13 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderWidth: 3,
     borderColor: '#009A17',
+    //marginBottom: 20,
   },
   passwordInput: {
     width: '97%',
-    height: 60,
+    height: 56,
     // flex: 0.4,
-    marginTop: 30,
+    marginTop: 20,
     backgroundColor: 'white',
     justifyContent: 'center',
     borderRadius: 50,
@@ -185,7 +252,7 @@ const styles = StyleSheet.create({
     width: '97%',
     height: 50,
     // flex: 0.4,
-    marginTop: 40,
+    marginTop: 30,
     justifyContent: 'center',
     borderRadius: 50,
     borderColor: '#009A17',
@@ -207,12 +274,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   inputText: {
-    fontSize: 15,
+    fontSize: 20,
     color: '#5B5959',
     fontWeight: '500',
     letterSpacing: 0.5,
     textAlign: 'left',
     marginLeft: 20,
+  },
+
+  errorText: {
+    width: '100%',
+    height: 15,
+    backgroundColor: 'white',
+    marginTop: 10,
+    display: 'flex',
+    marginLeft: 20,
+    textAlign: 'left',
   },
 
   loginButton: {
