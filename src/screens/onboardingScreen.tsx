@@ -4,7 +4,7 @@ import { ImageBackground, SafeAreaView, StyleSheet,View,Text, TouchableOpacity }
 const Onboard=()=>{
   return(
     <SafeAreaView style={styles.container}>
-        <ImageBackground source={require('../../assets/image/onboard_image.png')}
+        <ImageBackground source={require('../../assets/image/sycamore-1469825_1280.jpg')}
         style={styles.imageBackground}
         >
             <View style={styles.topicContainer1}>
@@ -66,7 +66,7 @@ const styles=StyleSheet.create({
         top:'23%'
     },
     SmallText:{
-        fontWeight:'300',
+        fontWeight:'400',
         fontSize:14,
         elevation:40,
         color:'white'
