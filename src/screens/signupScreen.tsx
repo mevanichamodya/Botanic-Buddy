@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useState} from 'react';
 import {
   View,
@@ -40,7 +41,7 @@ const signupScreen = () => {
   };
 
   const validateConfirmPassword = () => {
-    if (ConfirmPassword !== password) {
+    if (ConfirmPassword !== password && ConfirmPassword !== '') {
       setConfirmPasswordError('Invalid password');
     } else {
       setConfirmPasswordError('');
