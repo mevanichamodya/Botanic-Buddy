@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,6 +13,51 @@ import {
 } from 'react-native';
 
 const signupScreen = () => {
+  //const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [ConfirmPassword, setConfirmPassword] = useState('');
+  //const [userNameError, setUserNameError] = userState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [ConfirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email) && email !== '') {
+      setEmailError('Invalid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const validatePassword = () => {
+    if (password.length < 6 && password !== '') {
+      setPasswordError('Password must be at least 6 characters');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const validateConfirmPassword = () => {
+    if (ConfirmPassword !== password) {
+      setConfirmPasswordError('Invalid password');
+    } else {
+      setConfirmPasswordError('');
+    }
+  };
+
+  const handleSignup = () => {
+    validateEmail();
+    validatePassword();
+
+    if (emailError === '' && passwordError === '') {
+      console.log('Login sucessful');
+    } else {
+      console.log('Try again!');
+    }
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -46,29 +91,51 @@ const signupScreen = () => {
               <View style={[styles.signupTextFieldBox]}>
                 <View style={[styles.signupField]}>
                   <TextInput
-                    style={[styles.userNameText]}
+                    style={[styles.inputNameText]}
                     placeholder="User name"
                   />
                 </View>
+                <View style={[styles.errorText]} />
                 <View style={[styles.signupField]}>
                   <TextInput
-                    style={[styles.userNameText]}
+                    style={[styles.inputNameText]}
                     placeholder="Email"
+                    onChangeText={text => setEmail(text)}
+                    onBlur={validateEmail}
                   />
+                </View>
+                <View style={[styles.errorText]}>
+                  {emailError !== '' && (
+                    <Text style={{color: 'red'}}>{emailError}</Text>
+                  )}
                 </View>
                 <View style={[styles.signupField]}>
                   <TextInput
-                    style={[styles.userNameText]}
+                    style={[styles.inputNameText]}
                     placeholder="Password"
                     secureTextEntry={true}
+                    onChangeText={text => setPassword(text)}
+                    onBlur={validatePassword}
                   />
+                </View>
+                <View style={[styles.errorText]}>
+                  {passwordError !== '' && (
+                    <Text style={{color: 'red'}}>{passwordError}</Text>
+                  )}
                 </View>
                 <View style={[styles.signupField]}>
                   <TextInput
-                    style={[styles.userNameText]}
+                    style={[styles.inputNameText]}
                     placeholder=" Confirm password"
                     secureTextEntry={true}
+                    onChangeText={text => setConfirmPassword(text)}
+                    onBlur={validateConfirmPassword}
                   />
+                </View>
+                <View style={[styles.errorText]}>
+                  {ConfirmPasswordError !== '' && (
+                    <Text style={{color: 'red'}}>{ConfirmPasswordError}</Text>
+                  )}
                 </View>
                 <View style={[styles.signupField]}>
                   <TouchableOpacity style={[styles.signupButton]}>
@@ -121,7 +188,7 @@ const styles = StyleSheet.create({
   signupImg: {
     width: '100%',
     height: 380,
-    backgroundColor: 'aqua',
+    backgroundColor: 'white',
     position: 'absolute',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
@@ -129,10 +196,10 @@ const styles = StyleSheet.create({
 
   signupBox: {
     width: 'auto',
-    height: 650,
+    height: 675,
     padding: 15,
     paddingBottom: 25,
-    marginTop: 110,
+    marginTop: 100,
     backgroundColor: 'white',
     borderRadius: 25,
     elevation: 15,
@@ -194,19 +261,20 @@ const styles = StyleSheet.create({
     width: '97%',
     height: 50,
     //flex: 0.4,
-    marginTop: 15,
+    marginTop: 5,
     backgroundColor: 'white',
     justifyContent: 'center',
     borderRadius: 50,
     elevation: 2,
     borderWidth: 3,
     borderColor: '#009A17',
+    //marginBottom: 20,
   },
 
-  userNameText: {
-    fontSize: 15,
+  inputNameText: {
+    fontSize: 20,
     color: '#5B5959',
-    fontWeight: '500',
+    fontWeight: '800',
     letterSpacing: 0.5,
     textAlign: 'left',
     marginLeft: 20,
@@ -230,6 +298,7 @@ const styles = StyleSheet.create({
     width: '100%',
     //height: 100,
     backgroundColor: 'white',
+    marginTop: 25,
   },
 
   bottomSubTextBox: {
@@ -237,7 +306,7 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: 'white',
     display: 'flex',
-    // marginTop: 40,
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
@@ -291,6 +360,16 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     alignItems: 'center',
+  },
+
+  errorText: {
+    width: '100%',
+    height: 20,
+    backgroundColor: 'white',
+    marginTop: 5,
+    //display: 'flex',
+    marginLeft: 20,
+    textAlign: 'left',
   },
 });
 
