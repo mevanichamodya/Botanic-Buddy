@@ -37,7 +37,7 @@ const Profile=()=>{
     return(
         <SafeAreaView style={styles.container}>
             <ImageBackground
-                source={require('../../assets/image/profile_background.jpg')}
+                source={require('../../assets/image/snowfield-8107562_1280.jpg')}
                 style={styles.imageBackground}
             >
                 <TouchableOpacity 
@@ -120,7 +120,7 @@ const styles=StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 20,
         top: '22%',
-        elevation: 50,
+        elevation: 150,
     },
     textContainer: {
         marginTop: 30,
@@ -178,24 +178,26 @@ const styles=StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: 16,
-        left: '24%',
+        left: '26%',
+        //alignItems:'center',
+        //justifyContent:'center'
     },
     editIconContainer: {
         position: 'absolute',
         top: '58%',
         right: '10%',
         backgroundColor: 'white',
-        width: 40,
-        height: 40,
+        width: 35,
+        height: 35,
         borderRadius: 30,
         padding: 5,
-        elevation: 50,
+        elevation: 150,
     },
     editIconImage: {
         width: 20,
         height: 20,
-        top: 6,
-        left: 5,
+        top: 3,
+        left: 3,
     },
     ProfileImage: {
         width: 75,
@@ -209,7 +211,7 @@ const styles=StyleSheet.create({
         height:90,
         top:"16%",
         left:'40%',
-        backgroundColor:'white',
+        backgroundColor:'#D3D3D3',
         borderRadius: 100,
         elevation: 50,
         borderWidth: 5,
