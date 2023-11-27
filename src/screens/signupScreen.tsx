@@ -11,6 +11,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 
 const signupScreen = () => {
@@ -58,6 +59,11 @@ const signupScreen = () => {
       console.log('Try again!');
     }
   };
+
+  // const simpleAlert = () => {
+  //   Alert.alert('simple alert');
+  // };
+  //onPress={simpleAlert}
 
   return (
     <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>

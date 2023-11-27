@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "836632609661",
+    "project_id": "botanicbuddy-f95cc",
+    "storage_bucket": "botanicbuddy-f95cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836632609661:android:4d04c588a15c79da73c214",
+        "android_client_info": {
+          "package_name": "com.botanic_buddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqyNX3znPK2nA7ueQ8ofVr_l0qVLUog0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
