@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -13,21 +13,56 @@ import {
   SafeAreaView,
   Alert,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 const signupScreen = () => {
-  //const [userName, setUserName] = useState('');
+
+
+  const [userName, setuserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [ConfirmPassword, setConfirmPassword] = useState('');
-  //const [userNameError, setUserNameError] = userState('');
+  const [userNameError, setuserNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [ConfirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const signupFn = () => {
+    // if (!userName) {
+    //   setuserNameError('username required');
+    // } else {
+    //   authentication();
+    // }
+    authentication();
+
+  };
+
+  const authentication = () => {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        Alert.alert('User Created' + res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+
+  const validateUserName = () => {
+    if (!userName) {
+      setuserNameError('username required');
+    } else {
+      setuserNameError('');
+    }
+  };
 
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email) && email !== '') {
       setEmailError('Invalid email address');
+    } else if (!email) {
+      setEmailError('Email required');
     } else {
       setEmailError('');
     }
@@ -36,6 +71,8 @@ const signupScreen = () => {
   const validatePassword = () => {
     if (password.length < 6 && password !== '') {
       setPasswordError('Password must be at least 6 characters');
+    } else if (!password) {
+      setPasswordError('Password required');
     } else {
       setPasswordError('');
     }
@@ -44,29 +81,15 @@ const signupScreen = () => {
   const validateConfirmPassword = () => {
     if (ConfirmPassword !== password && ConfirmPassword !== '') {
       setConfirmPasswordError('Invalid password');
+    } else if (!ConfirmPassword) {
+      setConfirmPasswordError('Confirm password required');
     } else {
       setConfirmPasswordError('');
     }
   };
 
-  const handleSignup = () => {
-    validateEmail();
-    validatePassword();
-
-    if (emailError === '' && passwordError === '') {
-      console.log('Login sucessful');
-    } else {
-      console.log('Try again!');
-    }
-  };
-
-  // const simpleAlert = () => {
-  //   Alert.alert('simple alert');
-  // };
-  //onPress={simpleAlert}
-
   return (
-    <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <ScrollView
           contentContainerStyle={styles.signUpMain}
@@ -78,7 +101,7 @@ const signupScreen = () => {
                 style={[styles.signupImg]}
               />
             </View>
-            <View style={[styles.signupBox, {flexDirection: 'column'}]}>
+            <View style={[styles.signupBox, { flexDirection: 'column' }]}>
               <View style={[styles.signupHeadBox]}>
                 <View style={[styles.signupHeader]}>
                   <Text style={[styles.signupHeaderText]}>
@@ -100,9 +123,17 @@ const signupScreen = () => {
                   <TextInput
                     style={[styles.inputNameText]}
                     placeholder="User name"
+                    onChangeText={text => setuserName(text)}
+                  //onBlur={validateUserName}
+                  // onPressIn={validateUserName}
                   />
                 </View>
-                <View style={[styles.errorText]} />
+
+                <View style={[styles.errorText]}>
+                  {userNameError !== '' && (
+                    <Text style={{ color: 'red' }}>{userNameError}</Text>
+                  )}
+                </View>
                 <View style={[styles.signupField]}>
                   <TextInput
                     style={[styles.inputNameText]}
@@ -113,7 +144,7 @@ const signupScreen = () => {
                 </View>
                 <View style={[styles.errorText]}>
                   {emailError !== '' && (
-                    <Text style={{color: 'red'}}>{emailError}</Text>
+                    <Text style={{ color: 'red' }}>{emailError}</Text>
                   )}
                 </View>
                 <View style={[styles.signupField]}>
@@ -127,7 +158,7 @@ const signupScreen = () => {
                 </View>
                 <View style={[styles.errorText]}>
                   {passwordError !== '' && (
-                    <Text style={{color: 'red'}}>{passwordError}</Text>
+                    <Text style={{ color: 'red' }}>{passwordError}</Text>
                   )}
                 </View>
                 <View style={[styles.signupField]}>
@@ -141,11 +172,13 @@ const signupScreen = () => {
                 </View>
                 <View style={[styles.errorText]}>
                   {ConfirmPasswordError !== '' && (
-                    <Text style={{color: 'red'}}>{ConfirmPasswordError}</Text>
+                    <Text style={{ color: 'red' }}>{ConfirmPasswordError}</Text>
                   )}
                 </View>
                 <View style={[styles.signupField]}>
-                  <TouchableOpacity style={[styles.signupButton]}>
+                  <TouchableOpacity
+                    style={[styles.signupButton]}
+                    onPress={signupFn}>
                     <Text style={[styles.signupText]}>Sign up</Text>
                   </TouchableOpacity>
                 </View>
