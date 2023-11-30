@@ -1,133 +1,214 @@
-import React from "react";
-import { SafeAreaView, StyleSheet,ImageBackground, Text,Image ,TextInput,View, ScrollView, TouchableOpacity} from "react-native";
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native';
 
-const Home=()=>{
-    return(
-        <SafeAreaView style={styles.container}>
-            <ImageBackground
-                source={require('../../assets/image/sheets-7722898_1280.jpg')}
-                style={styles.backgroundImage}
-                imageStyle={styles.backgroundImageStyle}
-            >
-                <ScrollView style={styles.scrollView}>
-                    <Text style={styles.Topic}> Botanic Buddy</Text>
-                    <View style={styles.inputContainer}>
-                        <Image source={require('../../assets/icon/icons8-search-48.png')} style={styles.searchIcon} />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Search for plants..."
-                        />
-                    </View>
-                    <View style={styles.imageBox}>
-                    <Image
-                        source={require('../../assets/image/spring-846051_1280.jpg')}
-                        style={styles.coverImage}
-                    />
-                    </View>
 
-                    <TouchableOpacity style={styles.textContainer}>
-                        <Text style={styles.text}>Plant Diseases</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.textContainer}>
-                        <Text style={styles.text}>Care Guide</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.textContainer}>
-                        <Text style={styles.text}>FAQ</Text>
-                    </TouchableOpacity>
-                </ScrollView>
-                </ImageBackground>
-        </SafeAreaView>
-    );
+const Home = () => {
+   
+  return (
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity style={styles.topContainer}  >
+        <Image
+                style={styles.ProfileImage}
+                source={require('../../assets/icon/icons8-avatar-64.png')}
+            />
+      </TouchableOpacity>
+      <Text style={styles.Topic}>Botanic Buddy</Text>
+      <Text style={styles.smallText}>Explore the World of Plants with Botanic Buddy.</Text>
+      <View style={styles.secondContainer}>
+        <View style={styles.lowerContainer1}>
+          <View style={styles.lowerContainer2}></View>
+        </View>
+      </View>
+      <View style={styles.imageBackground}></View>
+      <Image style={styles.image} source={require('../../assets/image/tree-2750366_1280.png')}/>
+      <View style={styles.middleContainer}>
+        <View style={styles.middleContainerRow}>
+            <TouchableOpacity style={styles.textBox}>
+                <View style={styles.circleContainer}>
+                    <Image style={styles.icon} source={require('../../assets/icon/icons8-plant-48.png')}/>
+                </View>
+                <Text style={styles.text}>Plant</Text>
+                <Text style={styles.text2}>Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.textBox}>
+                <View style={styles.circleContainer}>
+                    <Image style={styles.icon} source={require('../../assets/icon/icons8-tree-planting-48.png')}/>
+                </View>
+                <Text style={styles.text}>Plant</Text>
+                <Text style={styles.text2}>Care</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={styles.middleContainerRow}>
+            <TouchableOpacity style={styles.textBox}>
+                <View style={styles.circleContainer}>
+                    <Image style={styles.icon} source={require('../../assets/icon/icons8-faq-50.png')}/>
+                </View>
+                <Text style={styles.text}>FAQ</Text>
+                
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.textBox}>
+                <View style={styles.circleContainer}>
+                    <Image style={styles.icon} source={require('../../assets/icon/noun-plant-disease-4867974.png')}/>
+                </View>
+                <Text style={styles.text}>Plant</Text>
+                <Text style={styles.text2}>Disease</Text>
+            </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
 };
-const styles=StyleSheet.create({
-    container:{
-        borderColor:'#009A17',
-        borderWidth:6,
-        borderRadius:20,
-        //backgroundColor:'white',
-        flex:1
-    },
-    Topic:{
-        fontFamily:'Inknut Antiqua',
-        fontWeight:'900',
-        fontSize:34,
-        elevation:100,
-        color:'#009A17',
-        textAlign:'center',
-        marginTop:20,
-        marginBottom:15
-    },
-    inputContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 50,
-        borderColor: '#009A17',
-        borderWidth: 2,
-        marginBottom: 10,
-        width: "75%",
-        margin: 20,
-        marginLeft: 50,
-        borderRadius: 20,
-        backgroundColor: '#DDF1D3',
-    },
-    input: {
-        flex: 1,
-        height: '100%',
-        paddingHorizontal: 10,
-    },
-    searchIcon: {
-        width: 24,
-        height: 24,
-        margin: 6,
-    },
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#009A17',
+    borderWidth: 4,
+    borderColor: '#009A17',
+    borderRadius: 20,
+    position: 'relative', // Required for absolute positioning inside
+  },
+  secondContainer: {
+    flex: 1,
+    backgroundColor: '#009A17',
+    justifyContent: 'flex-end',
+    position: 'relative', // Required for absolute positioning inside
+  },
+  lowerContainer1: {
+    backgroundColor: '#DDF1D3',
+    elevation: 50,
+    borderRadius: 20,
+    height: '70%',
+  },
+  lowerContainer2: {
+    position: 'absolute',
+    top: '10%',
+    height: '90%',
+    width: '100%',
+    backgroundColor: 'white',
+    elevation: 50,
+    borderRadius: 20,
+  },
+  Topic: {
+    fontFamily: 'Inknut Antiqua',
+    justifyContent: 'flex-start',
+    margin: 20,
+    marginLeft: 5,
+    fontWeight: '900',
+    fontSize: 34,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  smallText: {
+    fontFamily: 'Inknut Antiqua',
+    fontWeight: '100',
+    fontStyle: 'normal',
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 2,
+    margin:20
+  },
+  imageBackground: {
+    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    top: '20%',
+    left: '32%',
+    width: 150,
+    height: 150,
+    backgroundColor: 'white',
+    borderRadius: 100,
+    //transform: [{ translateX: -50 }, { translateY: -50 }],
+    zIndex: 2,
+    borderWidth:3,
+    borderColor:'#009A17'
+  },
+  image:{
+    ...StyleSheet.absoluteFillObject,
+    top: '15%',
+    left: '27%',
+    width: 190,
+    height: 190,
+    zIndex: 2,
+  },
+  middleContainer: {
+    ...StyleSheet.absoluteFillObject,
+    height: '68%',
+    backgroundColor: 'white',
+    elevation: 70,
+    borderRadius: 20,
+    marginTop: 240,
+    margin: 20,
+    marginBottom: 20,
+    zIndex: 1, // Lower zIndex to keep it behind imageBackground
+  },
+  topContainer:{
+    ...StyleSheet.absoluteFillObject,
+    width:50,
+    height:50,
+    top:"2%",
+    left:'85%',
+    backgroundColor:'white',
+    borderRadius: 100,
+    elevation: 100,
     
-    imageBox:{
-        height:180,
-        width:350,
-        borderColor:'#009A17',
-        margin:25,
-        borderWidth:2,
-        borderRadius:20,
-        overflow: 'hidden',
-        marginBottom:25
-    },
-    coverImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        width: '100%',
-        height: '100%',
-    },
-    scrollView: {
-        flex: 1,
-        backgroundColor: 'transparent', 
-      },
- 
-    textContainer:{
-        height:50,
-        width:300,
-        backgroundColor:'#009A17',
-        borderWidth:3,
-        borderRadius:20,
-        borderColor:'#009A17',
-        margin:25,
-        marginLeft:52,
-        marginTop:20
-    },
-    text:{
-        fontWeight:'bold',
-        fontSize:25,
-        color:'white',
-        marginTop:5,
-        textAlign:'center'
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    },
-    backgroundImageStyle: {
-        opacity: 0.2, 
-    },
+  },
+  ProfileImage: {
+    width: 50,
+    height: 50,
+    //left:1,
+    //top:'0.5%',
+    alignItems:'center'
+  },
+  middleContainerRow: {
+    flexDirection: 'row',
+    //justifyContent:'space-between',
+    alignItems: 'center',
+  },
+  textBox:{
+    width:130,
+    height:180,
+    backgroundColor:'#DDF1D3',
+    borderWidth:3,
+    borderColor:'#009A17',
+    borderRadius:20,
+    marginLeft:30,
+    marginTop:70,
+  },
+  circleContainer:{
+    width:50,
+    height:50,
+    top:"15%",
+    left:'42%',
+    backgroundColor:'white',
+    borderRadius: 100,
+    //elevation: 100,
+  },
+  icon:{
+    width: 40,
+    height: 40,
+    top:'4%',
+    left:'14%'
+  },
+  text:{
+    fontFamily: 'Inknut Antiqua',
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#009A17',
+    //textAlign: 'center',
+    marginTop:40,
+    marginLeft:20
+  },
+  text2:{
+    fontFamily: 'Inknut Antiqua',
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#009A17',
+    textAlign: 'center',
+    //marginTop:40,
+    marginLeft:45
+  }
 });
 
 export default Home;
