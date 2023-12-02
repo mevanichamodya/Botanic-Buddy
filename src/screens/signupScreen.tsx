@@ -28,11 +28,14 @@ const signupScreen = () => {
   const signupFn = () => {
     if (!userName) {
       setuserNameError('username required');
-    } else if (!email) {
+    }
+    if (!email) {
       setEmailError('Email required');
-    } else if (!password) {
+    }
+    if (!password) {
       setPasswordError('Password required');
-    } else if (!ConfirmPassword) {
+    }
+    if (!ConfirmPassword) {
       setConfirmPasswordError('Confirm password required');
     } else {
       authentication();
@@ -50,13 +53,13 @@ const signupScreen = () => {
       });
   };
 
-  const validateUserName = () => {
-    if (userName !== '') {
-      setuserNameError('username required');
-    } else {
-      setuserNameError('');
-    }
-  };
+  // const validateUserName = () => {
+  //   if (userName !== '') {
+  //     setuserNameError('username required');
+  //   } else {
+  //     setuserNameError('');
+  //   }
+  // };
 
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -70,7 +73,6 @@ const signupScreen = () => {
   const validatePassword = () => {
     if (password.length < 6 && password !== '') {
       setPasswordError('Password must be at least 6 characters');
-      setPasswordError('Password required');
     } else {
       setPasswordError('');
     }
@@ -79,7 +81,6 @@ const signupScreen = () => {
   const validateConfirmPassword = () => {
     if (ConfirmPassword !== password && ConfirmPassword !== '') {
       setConfirmPasswordError('Invalid password');
-      setConfirmPasswordError('Confirm password required');
     } else {
       setConfirmPasswordError('');
     }
@@ -121,7 +122,7 @@ const signupScreen = () => {
                     style={[styles.inputNameText]}
                     placeholder="User name"
                     onChangeText={text => setuserName(text)}
-                    onBlur={validateUserName}
+                    //onBlur={validateUserName}
                   />
                 </View>
 

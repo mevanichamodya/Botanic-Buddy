@@ -13,13 +13,28 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   SafeAreaView,
+  Alert,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 const loginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const loginWithEmailAndPass = () => {
+    Alert.alert(email);
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(res => {
+        console.log(res);
+        Alert.alert(' Success: Logged In');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,6 +63,7 @@ const loginScreen = () => {
       console.log('Login faield. Please try again');
     }
   };
+
   return (
     <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -108,7 +124,9 @@ const loginScreen = () => {
                   )}
                 </View>
                 <View style={[styles.signinInput]}>
-                  <TouchableOpacity style={styles.signInButton}>
+                  <TouchableOpacity
+                    style={styles.signInButton}
+                    onPress={loginWithEmailAndPass}>
                     <Text style={styles.signInText}>Sign In</Text>
                   </TouchableOpacity>
                 </View>
@@ -376,3 +394,6 @@ const styles = StyleSheet.create({
 });
 
 export default loginScreen;
+function then(arg0: (res: any) => void) {
+  throw new Error('Function not implemented.');
+}
