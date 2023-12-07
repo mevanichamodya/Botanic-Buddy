@@ -1,21 +1,7 @@
-import React from 'react';
-// import Login from './src/screens/loginScreen';
+import React from "react";
+import Onboard from "./src/screens/onboardingScreen";
 
-// const App = () => {
-//   return (
-//     <>
-//       <Login />
-//     </>
-//   );
-// };
-
-import SignUp from './src/screens/signupScreen';
-const App = () => {
-  return (
-    <>
-      <SignUp />
-    </>
-  );
+const App=()=>{
+  return <Onboard />;
 };
-
 export default App;
