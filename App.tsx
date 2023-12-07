@@ -1,15 +1,7 @@
-import React from "react";
-/*import Onboard from "./src/screens/onboardingScreen";
-
-const App=()=>{
-  return <Onboard />;
-};
-export default App;*/
-import Profile from "./src/screens/profileScreen";
-
-const App=()=>{
-  return(
-    <Profile/>
+import AppNavigation from "./src/navigation/AppNavigator";
+const App = () => {
+  return (
+    <AppNavigation />
   );
 };
 export default App;
