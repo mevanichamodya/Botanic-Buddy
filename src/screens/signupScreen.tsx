@@ -14,7 +14,7 @@ import {
   Alert,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-
+import firestore from '@react-native-firebase/firestore';
 const signupScreen = () => {
   const [userName, setuserName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,11 +45,24 @@ const signupScreen = () => {
   const authentication = () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        Alert.alert('User Created' + res);
+      .then(userCredential => {
+        const user = userCredential.user;
+        firestore()
+          .collection('users')
+          .doc(user.uid)
+          .set({
+            userName,
+            email,
+          })
+          .then(() => {
+            Alert.alert('User Created and Data Stored Successfully');
+          })
+          .catch(error => {
+            console.error('Error storing user data: ', error);
+          });
       })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        console.error('Error creating user: ', error);
       });
   };
 
