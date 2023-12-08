@@ -15,21 +15,37 @@ import {
   SafeAreaView,
   Alert,
 } from 'react-native';
+import ToastContainer, {
+  ToastOptions,
+  useToast,
+} from 'react-native-toast-notifications';
 import auth from '@react-native-firebase/auth';
 
 const loginScreen = () => {
+  const toast = useToast();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const handlingError = () => {
+    if (!email) {
+      setEmailError('Email required');
+    }
+    if (!password) {
+      setPasswordError('Password required');
+    } else {
+      loginWithEmailAndPass();
+    }
+  };
+
   const loginWithEmailAndPass = () => {
-    Alert.alert(email);
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         console.log(res);
-        Alert.alert(' Success: Logged In');
+        toast.show('Login successful!');
       })
       .catch(err => {
         console.log(err);
@@ -39,7 +55,7 @@ const loginScreen = () => {
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email) && email !== '') {
-      setEmailError('Inavalid email address');
+      setEmailError('Invalid email address');
     } else {
       setEmailError('');
     }
@@ -126,7 +142,7 @@ const loginScreen = () => {
                 <View style={[styles.signinInput]}>
                   <TouchableOpacity
                     style={styles.signInButton}
-                    onPress={loginWithEmailAndPass}>
+                    onPress={handlingError}>
                     <Text style={styles.signInText}>Sign In</Text>
                   </TouchableOpacity>
                 </View>
