@@ -1,7 +1,6 @@
-import AppNavigation from "./src/navigation/AppNavigator";
+import Onboard from "./src/screens/onboardingScreen";
+
 const App = () => {
-  return (
-    <AppNavigation />
-  );
+  return <Onboard />;
 };
 export default App;

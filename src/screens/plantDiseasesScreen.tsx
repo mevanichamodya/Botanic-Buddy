@@ -92,7 +92,7 @@ const DiseaseDetails: React.FC<DiseaseDetailsProps> = ({ disease, onClose }) => 
   );
 };
 
-const plantDiseasesScreen: React.FC = () => {
+const PlantDiseasesScreen: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<Disease[]>([]);
   const [loading, setLoading] = useState(false);
@@ -167,7 +167,7 @@ const plantDiseasesScreen: React.FC = () => {
   return (
     <View style={styles.containerWithBorder}>
       <ImageBackground
-        source={require('./android/Images/flower.jpg')}
+        source={require('../../assets/image/plantDisease.jpg')}
         style={styles.backgroundImage}
       >
         <Text style={styles.titleText}>Plant Diseases🍀 </Text>
@@ -362,4 +362,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default plantDiseasesScreen;
+export default PlantDiseasesScreen;
