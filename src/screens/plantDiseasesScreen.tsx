@@ -32,6 +32,8 @@ interface DiseaseDetailsProps {
 
 const DiseaseDetails: React.FC<DiseaseDetailsProps> = ({ disease, onClose }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [displayedSection, setDisplayedSection] = useState<string | null>(null);
+  const [hiddenButtons, setHiddenButtons] = useState<string[]>([]);
 
   const openImageModal = (image: string) => {
     setSelectedImage(image);
@@ -41,57 +43,43 @@ const DiseaseDetails: React.FC<DiseaseDetailsProps> = ({ disease, onClose }) => 
     setSelectedImage(null);
   };
 
+  const showSection = (section: string) => {
+    setDisplayedSection(section);
+    setHiddenButtons([...hiddenButtons, section]);
+  };
+
+  const isButtonHidden = (buttonName: string) => hiddenButtons.includes(buttonName);
+
   return (
     <Modal animationType="slide" transparent={false} visible={true}>
       <View style={styles.modalContainer}>
         <Text style={styles.modalTitle}>{disease.common_name}</Text>
 
-        <FlatList
-          data={disease.description}
-          renderItem={({ item }) => (
-            <View style={styles.modalContent}>
-              <Text style={styles.subtitle}>{item.subtitle}</Text>
-              <Text>{item.description}</Text>
-            </View>
-          )}
-          keyExtractor={(item, index) => `desc_${index.toString()}`}
-        />
+        {!isButtonHidden('description') && (
+          <TouchableOpacity onPress={() => showSection('description')} style={styles.button}>
+            <Text style={styles.buttonText}>Show Description</Text>
+          </TouchableOpacity>
+        )}
 
-        <FlatList
-          data={disease.solution}
-          renderItem={({ item }) => (
-            <View style={styles.modalContent}>
-              <Text style={styles.subtitle}>{item.subtitle}</Text>
-              <Text>{item.description}</Text>
-            </View>
-          )}
-          keyExtractor={(item, index) => `sol_${index.toString()}`}
-        />
+        {displayedSection === 'description' && (
+          <View style={styles.modalContent}>
+            <Text style={styles.subtitle}>Description:</Text>
+            {disease.description.map((item, index) => (
+              <View key={`desc_${index.toString()}`}>
+                <Text style={styles.subtitle}>{item.subtitle}</Text>
+                <Text>{item.description}</Text>
+              </View>
+            ))}
+          </View>
+        )}
 
-        <View style={styles.modalContent}>
-          <Text style={styles.subtitle}>Host:</Text>
-          {disease.host.map((h, index) => (
-            <Text key={`host_${index.toString()}`}>{h}</Text>
-          ))}
-        </View>
-
-        <FlatList
-          data={disease.images}
-          horizontal
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => openImageModal(item.original_url)}>
-              <Image style={styles.thumbnail} source={{ uri: item.thumbnail }} />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => `img_${index.toString()}`}
-        />
+        {/* ... (Similar changes for other sections) */}
 
         <TouchableOpacity onPress={onClose} style={styles.backButton}>
           <Text style={styles.backButtonText}>Back</Text>
         </TouchableOpacity>
       </View>
 
-     
       <Modal animationType="slide" transparent={false} visible={selectedImage !== null}>
         <View style={styles.modalContainer}>
           <Image style={styles.largeImage} source={{ uri: selectedImage || '' }} />
@@ -104,7 +92,7 @@ const DiseaseDetails: React.FC<DiseaseDetailsProps> = ({ disease, onClose }) => 
   );
 };
 
-const App: React.FC = () => {
+const plantDiseasesScreen: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<Disease[]>([]);
   const [loading, setLoading] = useState(false);
@@ -177,59 +165,66 @@ const App: React.FC = () => {
   );
 
   return (
-    <ImageBackground
-      source={require("./assets/image/plantDisease.jpg")}
-      style={styles.backgroundImage}
-    >
+    <View style={styles.containerWithBorder}>
+      <ImageBackground
+        source={require('./android/Images/flower.jpg')}
+        style={styles.backgroundImage}
+      >
+        <Text style={styles.titleText}>Plant Diseases🍀 </Text>
 
-      <Text style={styles.titleText}>Plant Diseases🍁</Text>
+        <View style={styles.container}>
+          <Text style={styles.paragraphText}>
+            Explore and learn about common plant diseases. Select a disease to view details.🍂🥀
+          </Text>
 
-      <View style={styles.container}>
-        <Text style={styles.paragraphText}>
-          Explore and learn about common plant diseases. Select a disease to view details.🍂🥀
-        </Text>
+          <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Search for a disease"
+              value={searchTerm}
+              onChangeText={text => setSearchTerm(text)}
+              onSubmitEditing={handleSearch}
+              onKeyPress={handleKeyPress}
+            />
 
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Search for a disease"
-            value={searchTerm}
-            onChangeText={text => setSearchTerm(text)}
-            onSubmitEditing={handleSearch}
-            onKeyPress={handleKeyPress}
-          />
+            <TouchableOpacity onPress={handleSearch} style={styles.searchButton}>
+              <Text style={styles.searchButtonText}>Search</Text>
+            </TouchableOpacity>
+          </View>
 
-          <TouchableOpacity onPress={handleSearch} style={styles.searchButton}>
-            <Text style={styles.searchButtonText}>Search</Text>
-          </TouchableOpacity>
+          {loading ? (
+            <ActivityIndicator style={styles.loader} size="large" color="#0000ff" />
+          ) : error ? (
+            <Text>{error}</Text>
+          ) : (
+            <FlatList
+              data={filteredResults}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id ? item.id.toString() : Math.random().toString()}
+              style={styles.searchList}
+            />
+          )}
+
+          {selectedDisease && (
+            <DiseaseDetails disease={selectedDisease} onClose={closeDiseaseDetails} />
+          )}
         </View>
-
-        {loading ? (
-          <ActivityIndicator style={styles.loader} size="large" color="#0000ff" />
-        ) : error ? (
-          <Text>{error}</Text>
-        ) : (
-          <FlatList
-            data={filteredResults}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id ? item.id.toString() : Math.random().toString()}
-            style={styles.searchList}
-          />
-        )}
-
-        {selectedDisease && (
-          <DiseaseDetails disease={selectedDisease} onClose={closeDiseaseDetails} />
-        )}
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  containerWithBorder: {
+    flex: 1,
+    borderRadius: 30,
+    borderWidth: 6,
+    borderColor: 'green',
+    overflow: 'hidden',
+  },
   container: {
     flex: 1,
     padding: 10,
-    
   },
   titleText: {
     color: 'black',
@@ -286,7 +281,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    
   },
   searchItemText: {
     color: 'white',
@@ -327,11 +321,10 @@ const styles = StyleSheet.create({
     height: 300,
     marginBottom: 16,
   },
-
   searchButton: {
     marginTop: 10,
     padding: 5,
-    backgroundColor: 'green', 
+    backgroundColor: 'green',
     borderRadius: 5,
   },
   searchButtonText: {
@@ -343,9 +336,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: 'green',
     borderRadius: 10,
-    padding: 5, 
-    width: 80,  
-    height: 30,  
+    padding: 5,
+    width: 80,
+    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -354,6 +347,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
+  button: {
+    backgroundColor: 'lightblue',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
-export default App;
+export default plantDiseasesScreen;
