@@ -6,12 +6,7 @@ const Home = () => {
    
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.topContainer}  >
-        <Image
-                style={styles.ProfileImage}
-                source={require('../../assets/icon/icons8-avatar-64.png')}
-            />
-      </TouchableOpacity>
+      
       <Text style={styles.Topic}>Botanic Buddy</Text>
       <Text style={styles.smallText}>Explore the World of Plants with Botanic Buddy.</Text>
       <View style={styles.secondContainer}>
@@ -134,7 +129,7 @@ const styles = StyleSheet.create({
   },
   middleContainer: {
     ...StyleSheet.absoluteFillObject,
-    height: '68%',
+    height: '62%',
     backgroundColor: 'white',
     elevation: 70,
     borderRadius: 20,
@@ -143,24 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     zIndex: 1, // Lower zIndex to keep it behind imageBackground
   },
-  topContainer:{
-    ...StyleSheet.absoluteFillObject,
-    width:50,
-    height:50,
-    top:"2%",
-    left:'85%',
-    backgroundColor:'white',
-    borderRadius: 100,
-    elevation: 100,
-    
-  },
-  ProfileImage: {
-    width: 50,
-    height: 50,
-    //left:1,
-    //top:'0.5%',
-    alignItems:'center'
-  },
+  
   middleContainerRow: {
     flexDirection: 'row',
     //justifyContent:'space-between',
@@ -168,7 +146,7 @@ const styles = StyleSheet.create({
   },
   textBox:{
     width:130,
-    height:180,
+    height:160,
     backgroundColor:'#DDF1D3',
     borderWidth:3,
     borderColor:'#009A17',
