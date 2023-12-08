@@ -1,4 +1,4 @@
-import Onboard from "./src/screens/onboardingScreen";
+import Onboard from './src/screens/onboardingScreen';
 
 const App = () => {
   return <Onboard />;
