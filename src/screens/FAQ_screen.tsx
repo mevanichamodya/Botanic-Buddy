@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, ImageBackground } from 'react-native';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
+
+interface FaqData {
+  questions: string[];
+  answers: string[];
+}
 
 const YourComponent: React.FC = () => {
-  const [faqData, setFaqData] = useState({ questions: [], answers: [] });
+  const [faqData, setFaqData] = useState<FaqData>({ questions: [], answers: [] });
+  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -24,27 +31,52 @@ const YourComponent: React.FC = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const result = await response.json(); // assuming the API returns JSON
+      const result: FaqData = await response.json();
       setFaqData(result);
     } catch (error: any) {
-      // Specify the type of 'error' explicitly as 'any'
       console.error('Error:', error.message);
+      // Set an empty array for questions to avoid undefined error
+      setFaqData({ questions: [], answers: [] });
     }
+  };
+
+  const handleQuestionChange = (value: number) => {
+    setSelectedQuestionIndex(value);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.border}>
-        <Text style={styles.faqText}>FAQ</Text>
-      </View>
+      <ImageBackground
+        source={require('C:/Users/DILHARA/Downloads/dilharaFAQ/FAQscreen/assets/BackGround.jpg')}
+        style={styles.backgroundImage}
+      >
+        
+          <Text style={styles.faqText}>FAQ</Text>
+        
+      </ImageBackground>
       <View style={styles.square}>
-        {faqData.questions &&
-          faqData.questions.map((question, index) => (
-            <View key={index}>
-              <Text style={styles.questionText}>{question}</Text>
-              <Text style={styles.answerText}>{faqData.answers[index]}</Text>
-            </View>
-          ))}
+        <DropDownPicker
+          items={(faqData.questions || []).map((question, index) => ({
+            label: question,
+            value: index,
+            style: {
+              justifyContent: 'flex-start',
+            },
+          }))}
+          placeholder="Select a question"
+          containerStyle={{ height: 40, marginBottom: 20 }}
+          style={{ backgroundColor: '#fafafa' }}
+          // @ts-ignore
+          onValueChange={(value: ItemType) => handleQuestionChange(value)}
+        />
+        <View>
+          {selectedQuestionIndex !== null && faqData.questions && (
+            <>
+              <Text style={styles.questionText}>{faqData.questions[selectedQuestionIndex]}</Text>
+              <Text style={styles.answerText}>{faqData.answers[selectedQuestionIndex]}</Text>
+            </>
+          )}
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -53,30 +85,39 @@ const YourComponent: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderColor:'#009A17',
+    borderWidth:6,
+  // borderRadius:20,
+  //backgroundColor:'white',
+        
   },
-  border: {
-    flex: 1,
-    borderWidth: 9,
-    borderColor: 'green',
-    overflow: 'hidden', // Ensure the border clips the image
+  backgroundImage: {
+    flex: 0.5,
+    //resizeMode: 'cover',
+    //justifyContent: 'center',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    
   },
+  
   faqText: {
     position: 'absolute',
     top: 20,
     left: 130,
     fontSize: 36,
     fontWeight: 'bold',
-    color: 'black', // Change this to white
+    color: 'white',
   },
   square: {
     width: 300,
-    height: 650,
-    backgroundColor: 'lightgreen',
+    height: 500,
+    backgroundColor: 'white',
     borderRadius: 20,
     position: 'absolute',
     bottom: 15,
     alignSelf: 'center',
     padding: 20,
+    
   },
   questionText: {
     fontSize: 16,
