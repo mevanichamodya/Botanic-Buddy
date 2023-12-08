@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     left: 130,
     fontSize: 36,
     fontWeight: 'bold',
-    color: 'white', // Change this to white
+    color: 'black', // Change this to white
   },
   square: {
     width: 300,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgreen',
     borderRadius: 20,
     position: 'absolute',
-    bottom: 20,
+    bottom: 15,
     alignSelf: 'center',
     padding: 20,
   },
