@@ -5,7 +5,6 @@ import {
   FlatList,
   ActivityIndicator,
   StyleSheet,
-  Button,
   Modal,
   ScrollView,
   TextInput,
@@ -35,6 +34,14 @@ interface CareGuideDetailsProps {
 const CareGuideDetails: React.FC<CareGuideDetailsProps> = ({ careGuide, onClose }) => (
   <Modal animationType="slide" transparent={false} visible={true}>
     <ScrollView style={styles.modalContainer}>
+      <TouchableOpacity
+        onPress={onClose}
+        style={styles.backButton}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.backButtonText}>Back</Text>
+      </TouchableOpacity>
+
       <Text style={styles.modalTitle}>{careGuide.common_name}</Text>
 
       {careGuide.section.map((section) => (
@@ -43,8 +50,6 @@ const CareGuideDetails: React.FC<CareGuideDetailsProps> = ({ careGuide, onClose 
           <Text>{section.description}</Text>
         </View>
       ))}
-
-      <Button title="Close" onPress={onClose} />
     </ScrollView>
   </Modal>
 );
@@ -108,20 +113,23 @@ const plantGuideScreen: React.FC = () => {
   };
 
   const renderItem = ({ item }: { item: CareGuide }) => (
-    <TouchableOpacity onPress={() => openCareGuideDetails(item)}>
+    <TouchableOpacity
+      onPress={() => openCareGuideDetails(item)}
+      style={styles.searchedItem}
+    >
       <View style={styles.itemContainer}>
-        <Text>{item.common_name}</Text>
+        <Text style={styles.itemText}>{item.common_name}</Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
     <ImageBackground
-      source={require('./assets/image/plantguide.jpg')}
+      source={require('./android/Images/redf.jpg')}
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
-        <Text style={styles.titleText}> Plant Care Guide </Text>
+        <Text style={styles.titleText}>How to Care Your Plants</Text>
 
         <View style={styles.searchContainer}>
           <TextInput
@@ -130,7 +138,13 @@ const plantGuideScreen: React.FC = () => {
             value={searchTerm}
             onChangeText={(text) => setSearchTerm(text)}
           />
-          <Button title="Search" onPress={handleSearch} />
+          <TouchableOpacity
+            style={styles.searchButton}
+            onPress={handleSearch}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.searchButtonText}>Search</Text>
+          </TouchableOpacity>
         </View>
 
         {loading ? (
@@ -148,6 +162,10 @@ const plantGuideScreen: React.FC = () => {
         {selectedCareGuide && (
           <CareGuideDetails careGuide={selectedCareGuide} onClose={closeCareGuideDetails} />
         )}
+
+        <Text style={styles.introText}>
+          Welcome to the Plant Care Guide! Explore detailed care instructions for various plants.
+        </Text>
       </View>
     </ImageBackground>
   );
@@ -158,20 +176,35 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderWidth: 6, 
+    borderColor: 'green', 
+    borderRadius: 15,
   },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
   },
   titleText: {
-    fontSize: 24,
+    fontSize: 40,
+    color: 'green',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 5,
+  },
+  introText: {
+    fontSize: 35,
+    marginBottom: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 16,
+    color: 'darkslategray',
   },
   searchContainer: {
     flexDirection: 'row',
-    marginBottom: 16,
+    marginTop: 20,
+    justifyContent: 'center',
   },
   input: {
     flex: 1,
@@ -179,7 +212,18 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginRight: 8,
-    paddingLeft: 8,
+    paddingLeft: 12,
+  },
+  searchButton: {
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+  },
+  searchButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   loader: {
     marginTop: 20,
@@ -194,6 +238,20 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 5,
   },
+  itemText: {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  searchedItem: {
+    backgroundColor: 'white',
+    fontSize: 25,
+  },
+  searchedItemText: {
+    color: 'white',
+    fontWeight: 'bold',
+    borderColor: 'black',
+  },
   modalContainer: {
     flex: 1,
     padding: 16,
@@ -207,10 +265,23 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
+  },
+  backButton: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    padding: 16,
+    backgroundColor: 'green',
+    borderTopRightRadius: 10,
+  },
+  backButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
 export default plantGuideScreen;
+
